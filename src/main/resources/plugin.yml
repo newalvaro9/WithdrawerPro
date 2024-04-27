@@ -1,0 +1,17 @@
+name: WithdrawerPro
+version: '${project.version}'
+main: me.newalvaro9.withdrawerpro.WithdrawerPro
+api-version: '1.20'
+depend: [Vault]
+
+commands:
+  withdraw:
+    description: 'Withdraws money into a money note'
+    usage: '/withdraw <subcommand>'
+    permission: withdrawerpro.withdraw
+    permission-message: "You don't have permission to run this command."
+
+permissions:
+  withdrawerpro.withdraw:
+    description: Allows the access to the withdraw command.
+    default: op
