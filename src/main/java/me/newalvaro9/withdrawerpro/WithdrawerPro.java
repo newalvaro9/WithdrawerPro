@@ -20,14 +20,14 @@ public final class WithdrawerPro extends JavaPlugin implements Listener {
 
     private static Economy econ = null;
 
-    private static WithdrawerPro inst;
+    private static WithdrawerPro plugin;
 
-    public static WithdrawerPro getInst() {
-        return inst;
+    public static WithdrawerPro getPlugin() {
+        return plugin;
     }
 
     public void onEnable() {
-        inst = this;
+        plugin = this;
         vault = setupEco();
         if (!vault) {
             getLogger().log(Level.SEVERE, ChatColor.RED + "Please download Vault to use this plugin!");
