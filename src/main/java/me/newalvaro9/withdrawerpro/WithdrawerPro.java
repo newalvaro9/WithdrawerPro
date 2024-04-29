@@ -2,6 +2,7 @@ package me.newalvaro9.withdrawerpro;
 
 import java.util.logging.Level;
 
+import me.newalvaro9.withdrawerpro.services.Commands;
 import me.newalvaro9.withdrawerpro.services.InteractListener;
 import me.newalvaro9.withdrawerpro.services.OnWithdraw;
 
@@ -9,13 +10,10 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class WithdrawerPro extends JavaPlugin implements Listener {
-    public static String noteName = ChatColor.GREEN + "Money Note";
-
     private static boolean vault;
 
     private static Economy econ = null;
@@ -35,6 +33,8 @@ public final class WithdrawerPro extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         getCommand("withdraw").setExecutor(new OnWithdraw());
+        getCommand("withdrawerpro").setExecutor(new Commands());
+        saveDefaultConfig();
     }
 
     public static boolean getVault() {

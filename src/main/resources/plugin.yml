@@ -10,8 +10,18 @@ commands:
     usage: '/withdraw <subcommand>'
     permission: withdrawerpro.withdraw
     permission-message: "You don't have permission to run this command."
+  withdrawerpro:
+    description: 'WithdrawerPro op commands'
+    usage: '/withdrawerpro help|reload'
+    permission: withdrawerpro.admin
+    permission-message: "You don't have permission to run this command."
+    aliases:
+      - wp
 
 permissions:
+  withdrawerpro.admin:
+    description: Allows the access to the admin commands.
+    default: op
   withdrawerpro.withdraw:
     description: Allows the access to the withdraw command.
-    default: op
+    default: true

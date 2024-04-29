@@ -1,7 +1,6 @@
 package me.newalvaro9.withdrawerpro.services;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 
 import me.newalvaro9.withdrawerpro.WithdrawerPro;
@@ -19,22 +18,30 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class OnWithdraw implements CommandExecutor {
 
-    @Override
+    private final WithdrawerPro plugin = WithdrawerPro.getPlugin();
+
+    @Override @SuppressWarnings("ConstantConditions")
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.player_only_command")));
             return true;
         }
 
         Player player = (Player) sender;
 
         if (!player.hasPermission("withdrawerpro.withdraw")) {
-            player.sendMessage(ChatColor.RED + "You lack permission!");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.permission_lack")));
             return true;
         }
 
         if (args.length == 0) {
-            player.sendMessage(ChatColor.RED + "Please enter an amount.");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.enter_amount")));
+            return true;
+        }
+
+        if (args[0].contains(".")) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.decimal_not_allowed")));
             return true;
         }
 
@@ -47,27 +54,32 @@ public class OnWithdraw implements CommandExecutor {
                 player.getInventory().addItem(paper);
             } else {
                 if(Objects.equals(response.errorMessage, "Loan was not permitted!")) {
-                    player.sendMessage(ChatColor.RED + "Loan was not permitted!"); // translation thing
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.loan_not_permitted")));
                 } else {
                     player.sendMessage(ChatColor.RED + response.errorMessage);
                 }
             }
 
         } catch (NumberFormatException e) {
-            sender.sendMessage(ChatColor.RED + "Invalid amount! Please enter a valid number.");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.invalid_amount")));
             return true;
         }
 
         return true;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private ItemStack createPaper(float dollarAmount) {
         ItemStack paper = new ItemStack(Material.PAPER);
         ItemMeta meta = paper.getItemMeta();
 
         if (meta != null) {
-            meta.setDisplayName(WithdrawerPro.noteName);
-            meta.setLore(Arrays.asList(new String[] { ChatColor.AQUA + "$" + dollarAmount, ChatColor.BLUE + "(Right click to redeem)" }));
+            String displayName = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("item.display_name"));
+            String loreLine1 = ChatColor.AQUA + "$" + dollarAmount;
+            String loreLine2 = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("item.lore.line2"));
+
+            meta.setDisplayName(displayName);
+            meta.setLore(Arrays.asList(loreLine1, loreLine2));
             paper.setItemMeta(meta);
         }
 

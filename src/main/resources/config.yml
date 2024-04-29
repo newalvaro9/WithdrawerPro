@@ -1,0 +1,32 @@
+# The item that the user will get when he withdraws
+item:
+  # The name of the item
+  display_name: "&6Withdraw Note"
+  # Lore of the item
+  lore:
+    # Line 1 can't be modified as it contains the amount
+    line2: "&9(Right click to redeem)"
+
+error_messages:
+  player_only_command: "&cThis command can only be executed by a player."
+  permission_lack: "&cYou lack permission!"
+  enter_amount: "&cPlease enter an amount."
+  decimal_not_allowed: "&cDecimals are not allowed."
+  invalid_amount: "&cInvalid amount! Please enter a valid number."
+  loan_not_permitted: "&cYou don't have enough money!"
+
+on_redeem:
+  message: "&aYou have redeemed $%amount%" # %amount% --> The amount redeemed
+  sound:
+    sound_enabled: true
+    # The sound that would be played.
+    # List of available sounds:
+    # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html.
+    sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    # The sound volume.
+    # As the sound is private ranges between 0.1 and 1.0.
+    volume: 1.0
+    # The sound pitch.
+    # Ranges between 0.5 and 2.0.
+    # 1.0 normal speed, 0.5 half speed, 2.0 double speed.
+    pitch: 1.0
