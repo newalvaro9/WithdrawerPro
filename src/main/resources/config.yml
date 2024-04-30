@@ -1,8 +1,10 @@
-# The item that the user will get when he withdraws
+# The item that the user will get when he withdraws.
 item:
-  # The name of the item
+  # The name of the item.
   display_name: "&a&lCash-Note &7(Right-Click)"
-  # Lore of the item
+  # Lore of the item.
+  # %amount% --> The amount of the withdraw.
+  # %player% --> The owner of the cash-note.
   lore:
     - "&dValue:&r $%amount%"
     - "&dSigner:&r %player%"
@@ -16,14 +18,14 @@ error_messages:
   loan_not_permitted: "&cYou don't have enough money!"
 
 on_withdraw:
-  # %taken-amount% --> The amount of the withdraw
-  # %balance% --> Updated balance
+  # %taken-amount% --> The amount that was withdrawed.
+  # %balance% --> The new balance.
   message: "&c-$%taken-amount% &e(Balance: $%balance%)"
 
 on_redeem:
-  # %amount% --> The amount redeemed
-  # %balance% --> Updated balance
-  # %received-amount% --> The amount that was added
+  # %amount% --> The amount redeemed.
+  # %balance% --> The new balance.
+  # %received-amount% --> The amount that was added to the player.
   message: "&a+$%received-amount% &e(Balance: $%balance%)"
   sound:
     sound_enabled: true
