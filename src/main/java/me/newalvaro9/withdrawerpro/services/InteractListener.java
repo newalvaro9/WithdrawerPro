@@ -1,7 +1,9 @@
 package me.newalvaro9.withdrawerpro.services;
 
 import me.newalvaro9.withdrawerpro.WithdrawerPro;
+import me.newalvaro9.withdrawerpro.utils.NumberExtractor;
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -20,7 +22,6 @@ public class InteractListener implements Listener {
 
     @EventHandler @SuppressWarnings("ConstantConditions")
     private void noteRedeem(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
         if (e.getMaterial() == null)
@@ -28,14 +29,22 @@ public class InteractListener implements Listener {
         if (!e.getMaterial().equals(Material.PAPER))
             return;
         ItemStack note = e.getItem();
+
         if (note.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("item.display_name")))) {
             ItemMeta im = note.getItemMeta();
             if (!im.hasLore())
                 return;
-            float amount = Float.parseFloat(ChatColor.stripColor(note.getItemMeta().getLore().get(0)).replace('$', ' '));
-            this.eco.depositPlayer((OfflinePlayer)player, amount);
+            long amount = NumberExtractor.extractNumber(ChatColor.stripColor(note.getItemMeta().getLore().get(0)).replace('$', ' ').trim());
+            Player player = e.getPlayer();
 
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("on_redeem.message").replace("%amount%", String.valueOf(amount))));
+            EconomyResponse response = this.eco.depositPlayer((OfflinePlayer)player, amount);
+
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    plugin.getConfig().getString("on_redeem.message")
+                            .replace("%received-amount%", String.valueOf(amount))
+                            .replace("%balance%", String.valueOf((long) response.balance))
+            ));
+
             if(plugin.getConfig().getBoolean("on_redeem.sound.sound_enabled")) {
                 player.playSound(
                         player.getLocation(),

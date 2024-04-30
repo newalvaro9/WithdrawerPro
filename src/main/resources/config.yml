@@ -1,11 +1,11 @@
 # The item that the user will get when he withdraws
 item:
   # The name of the item
-  display_name: "&6Withdraw Note"
+  display_name: "&a&lCash-Note &7(Right-Click)"
   # Lore of the item
   lore:
-    # Line 1 can't be modified as it contains the amount
-    line2: "&9(Right click to redeem)"
+    - "&dValue:&r $%amount%"
+    - "&dSigner:&r %player%"
 
 error_messages:
   player_only_command: "&cThis command can only be executed by a player."
@@ -15,8 +15,16 @@ error_messages:
   invalid_amount: "&cInvalid amount! Please enter a valid number."
   loan_not_permitted: "&cYou don't have enough money!"
 
+on_withdraw:
+  # %taken-amount% --> The amount of the withdraw
+  # %balance% --> Updated balance
+  message: "&c-$%taken-amount% &e(Balance: $%balance%)"
+
 on_redeem:
-  message: "&aYou have redeemed $%amount%" # %amount% --> The amount redeemed
+  # %amount% --> The amount redeemed
+  # %balance% --> Updated balance
+  # %received-amount% --> The amount that was added
+  message: "&a+$%received-amount% &e(Balance: $%balance%)"
   sound:
     sound_enabled: true
     # The sound that would be played.
