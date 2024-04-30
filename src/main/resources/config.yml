@@ -4,6 +4,8 @@ item:
   # List of available items:
   # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   item: "PAPER"
+  # Whether if the item should glow.
+  glow: true
   # The name of the item.
   display_name: "&a&lCash-Note &7(Right-Click)"
   # Lore of the item.
