@@ -34,6 +34,7 @@ public class InteractListener implements Listener {
             ItemMeta im = note.getItemMeta();
             if (!im.hasLore())
                 return;
+
             long amount = NumberExtractor.extractNumber(ChatColor.stripColor(note.getItemMeta().getLore().get(0)).replace('$', ' ').trim());
             Player player = e.getPlayer();
 
