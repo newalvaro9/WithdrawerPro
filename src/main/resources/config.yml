@@ -1,5 +1,9 @@
 # The item that the user will get when he withdraws.
 item:
+  # The item that the user will receive.
+  # List of available items:
+  # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+  item: "PAPER"
   # The name of the item.
   display_name: "&a&lCash-Note &7(Right-Click)"
   # Lore of the item.

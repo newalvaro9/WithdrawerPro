@@ -26,7 +26,7 @@ public class InteractListener implements Listener {
             return;
         if (e.getMaterial() == null)
             return;
-        if (!e.getMaterial().equals(Material.PAPER))
+        if (!e.getMaterial().equals(Material.valueOf(plugin.getConfig().getString("item.item"))))
             return;
         ItemStack note = e.getItem();
 

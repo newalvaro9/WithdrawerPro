@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 @SuppressWarnings("ConstantConditions")
 public class ItemManager {
-    public static ItemStack createPaper(long dollarAmount, Player player) {
+    public static ItemStack createItem(long dollarAmount, Player player) {
         final WithdrawerPro plugin = WithdrawerPro.getPlugin();
-        ItemStack paper = new ItemStack(Material.PAPER);
-        ItemMeta meta = paper.getItemMeta();
+        ItemStack item = new ItemStack(Material.valueOf(plugin.getConfig().getString("item.item")));
+        ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
             String displayName = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("item.display_name"));
@@ -23,14 +23,14 @@ public class ItemManager {
             ArrayList<String> arrayList = new ArrayList<>();
             for (String str : plugin.getConfig().getStringList("item.lore")) {
                 str = ChatColor.translateAlternateColorCodes('&', str);
-                str = str.replace("%player%", player.getDisplayName());
+                str = str.replace("%player%", player.getName());
                 str = str.replace("%amount%", String.valueOf(dollarAmount));
                 arrayList.add(str);
             }
             meta.setLore(arrayList);
-            paper.setItemMeta(meta);
+            item.setItemMeta(meta);
         }
 
-        return paper;
+        return item;
     }
 }

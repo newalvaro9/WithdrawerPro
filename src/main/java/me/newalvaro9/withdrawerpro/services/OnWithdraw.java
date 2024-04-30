@@ -48,7 +48,7 @@ public class OnWithdraw implements CommandExecutor {
             long dollarAmount = Long.parseLong(args[0]);
             plugin.getLogger().info(String.valueOf(dollarAmount));
             EconomyResponse response = this.eco.withdrawPlayer((OfflinePlayer) player, dollarAmount);
-            ItemStack paper = ItemManager.createPaper(dollarAmount, player);
+            ItemStack paper = ItemManager.createItem(dollarAmount, player);
 
             if (response.type.equals(EconomyResponse.ResponseType.SUCCESS)) {
                 player.getInventory().addItem(paper);
