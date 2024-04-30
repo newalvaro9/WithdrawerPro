@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import me.newalvaro9.withdrawerpro.WithdrawerPro;
 import me.newalvaro9.withdrawerpro.utils.ItemManager;
-import me.newalvaro9.withdrawerpro.utils.NumberExtractor;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
