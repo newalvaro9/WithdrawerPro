@@ -1,7 +1,7 @@
 package me.newalvaro9.withdrawerpro.services;
 
 import me.newalvaro9.withdrawerpro.WithdrawerPro;
-import me.newalvaro9.withdrawerpro.utils.NumberExtractor;
+import me.newalvaro9.withdrawerpro.utils.NumberManager;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
@@ -35,15 +35,15 @@ public class InteractListener implements Listener {
             if (!im.hasLore())
                 return;
 
-            long amount = NumberExtractor.extractNumber(ChatColor.stripColor(note.getItemMeta().getLore().get(0)).replace('$', ' ').trim());
+            long amount = NumberManager.extractNumber(ChatColor.stripColor(note.getItemMeta().getLore().get(0)).replace('$', ' ').trim());
             Player player = e.getPlayer();
 
             EconomyResponse response = this.eco.depositPlayer((OfflinePlayer)player, amount);
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     plugin.getConfig().getString("on_redeem.message")
-                            .replace("%received-amount%", String.valueOf(amount))
-                            .replace("%balance%", String.valueOf((long) response.balance))
+                            .replace("%received-amount%", NumberManager.formatNumber(amount))
+                            .replace("%balance%", NumberManager.formatNumber((long) response.balance))
             ));
 
             if(plugin.getConfig().getBoolean("on_redeem.sound.sound_enabled")) {

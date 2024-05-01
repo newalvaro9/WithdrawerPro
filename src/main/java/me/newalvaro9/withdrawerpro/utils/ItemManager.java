@@ -26,7 +26,7 @@ public class ItemManager {
             for (String str : plugin.getConfig().getStringList("item.lore")) {
                 str = ChatColor.translateAlternateColorCodes('&', str);
                 str = str.replace("%player%", player.getName());
-                str = str.replace("%amount%", String.valueOf(dollarAmount));
+                str = str.replace("%amount%", NumberManager.formatNumber(dollarAmount));
                 arrayList.add(str);
             }
             meta.setLore(arrayList);

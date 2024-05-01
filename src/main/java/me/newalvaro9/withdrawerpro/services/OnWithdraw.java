@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import me.newalvaro9.withdrawerpro.WithdrawerPro;
 import me.newalvaro9.withdrawerpro.utils.ItemManager;
+import me.newalvaro9.withdrawerpro.utils.NumberManager;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -46,7 +47,6 @@ public class OnWithdraw implements CommandExecutor {
 
         try {
             long dollarAmount = Long.parseLong(args[0]);
-            plugin.getLogger().info(String.valueOf(dollarAmount));
             EconomyResponse response = this.eco.withdrawPlayer((OfflinePlayer) player, dollarAmount);
             ItemStack paper = ItemManager.createItem(dollarAmount, player);
 
@@ -55,8 +55,8 @@ public class OnWithdraw implements CommandExecutor {
 
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         plugin.getConfig().getString("on_withdraw.message")
-                                .replace("%taken-amount%", String.valueOf(dollarAmount))
-                                .replace("%balance%", String.valueOf((long) response.balance))
+                                .replace("%taken-amount%", NumberManager.formatNumber(dollarAmount))
+                                .replace("%balance%", NumberManager.formatNumber((long) response.balance))
                 ));
             } else {
                 if(Objects.equals(response.errorMessage, "Loan was not permitted!")) {

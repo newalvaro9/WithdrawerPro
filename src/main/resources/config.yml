@@ -1,3 +1,8 @@
+# For decimal separation when displaying numbers
+# COMMA --> Use comma as the decimal separator and dot as the grouping separator
+# DOT --> Use dot as the decimal separator and comma as the grouping separator
+decimal_separator: "DOT"
+
 item:
   # The item that the user will get when he withdraws.
   # List of available items:
