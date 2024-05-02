@@ -46,7 +46,13 @@ public class OnWithdraw implements CommandExecutor {
         }
 
         try {
-            long dollarAmount = Long.parseLong(args[0]);
+            long dollarAmount;
+            if(args[0].equals("all")) {
+                dollarAmount = (long) this.eco.getBalance(player);
+            } else {
+                dollarAmount = Long.parseLong(args[0]);
+            }
+
             EconomyResponse response = this.eco.withdrawPlayer((OfflinePlayer) player, dollarAmount);
             ItemStack paper = ItemManager.createItem(dollarAmount, player);
 
