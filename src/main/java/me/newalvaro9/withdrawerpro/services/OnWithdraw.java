@@ -40,7 +40,7 @@ public class OnWithdraw implements CommandExecutor {
             return true;
         }
 
-        if (args[0].contains(".")) {
+        if (args[0].contains(".") || args[0].contains(",")) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("error_messages.decimal_not_allowed")));
             return true;
         }
